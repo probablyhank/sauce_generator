@@ -6,6 +6,6 @@ COPY ./requirements.txt /sauce_generator/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /sauce_generator/requirements.txt
 
-COPY ./main.py /sauce_generator/main.py
+COPY ./sauce_generator/main.py /sauce_generator/main.py
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "sauce_generator.main:app", "--host", "0.0.0.0", "--port", "80"]

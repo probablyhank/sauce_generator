@@ -6,7 +6,7 @@ Repository to generate that sauce
 # using py 3.10.9
 python -m venv venv
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn sauce_generator.main:app --reload
 ```
 
 # Docker

@@ -1,7 +1,7 @@
 # TODOs
 - Routing
     - Create a POST route that parses a query string from the body of the request
-    - Pass the requested query string to the openAPI chat genie
+    - Pass the requested query string to the openAI chat genie
     - Store both the request to and response from the wizard in a SQL database
     - Return the response to the query string back to the requesting client
 
