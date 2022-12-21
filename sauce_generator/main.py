@@ -6,12 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {
-        "message": custom_prompt(
-            # enter your prompt
-            "Write a sentence about a grumpy programmer named Henry."
-        )
-    }
+    return {"message": "Welcome to openAI via URL."}
 
 
 @app.get("/prompt/{prompt}")
