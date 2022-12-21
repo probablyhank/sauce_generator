@@ -5,6 +5,7 @@ Repository to generate that sauce
 ```
 # using py 3.10.9
 python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 uvicorn sauce_generator.main:app --reload
 ```
