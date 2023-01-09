@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from .big_brain import custom_prompt
+from .big_brain import custom_prompt, custom_rich_prompt
 
 from . import models, schemas
 
@@ -46,6 +46,26 @@ def create_custom_completion(db: Session, c_prompt: str):
     db_completion = models.Completion(
         id=openai_response.id,
         model=ada_model,
+        object=openai_response.object,
+        prompt=c_prompt,
+        output=openai_response.choices[0].text,
+        prompt_cost=usage_obj.prompt_tokens,
+        output_cost=usage_obj.completion_tokens,
+    )
+    db_completion.total_cost = db_completion.prompt_cost + db_completion.output_cost
+    db.add(db_completion)
+    db.commit()
+    db.refresh(db_completion)
+    return db_completion
+
+
+def create_rich_custom_completion(db: Session, c_prompt: str):
+    ai_model = "text-davinci-003"
+    openai_response = custom_rich_prompt(c_prompt, ai_model)
+    usage_obj = openai_response.usage
+    db_completion = models.Completion(
+        id=openai_response.id,
+        model=ai_model,
         object=openai_response.object,
         prompt=c_prompt,
         output=openai_response.choices[0].text,

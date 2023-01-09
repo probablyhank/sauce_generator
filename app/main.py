@@ -60,3 +60,9 @@ async def create_random_fact(db: Session = Depends(get_db)):
 async def create_custom_completion(db: Session = Depends(get_db), prompt: str = "Give me facts about computers."):
     comp = crud.create_custom_completion(db, prompt)
     return comp
+
+
+@app.post("/completions/create/custom-rich/")
+async def create_custom_completion(db: Session = Depends(get_db), prompt: str = "Give me facts about computers."):
+    comp = crud.create_rich_custom_completion(db, prompt)
+    return comp
