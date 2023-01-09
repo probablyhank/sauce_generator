@@ -50,7 +50,13 @@ async def read_all_completions(skip: int = 0, limit: int = 100, db: Session = De
     return completions
 
 
-@app.post("/prompt/create/random")
+@app.post("/completions/create/random")
 async def create_random_fact(db: Session = Depends(get_db)):
     comp = crud.create_random_completion(db)
+    return comp
+
+
+@app.post("/completions/create/custom/")
+async def create_custom_completion(db: Session = Depends(get_db), prompt: str = "Give me facts about computers."):
+    comp = crud.create_custom_completion(db, prompt)
     return comp
