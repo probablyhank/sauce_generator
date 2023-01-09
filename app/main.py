@@ -1,8 +1,23 @@
 # TODO implement validation for model & throw exceptions for bad inputs
-from fastapi import FastAPI, Query
+from typing import List
+from fastapi import FastAPI, Query, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from . import crud, models, schemas
+from .db import SessionLocal, engine
 from .big_brain import custom_prompt
 
+models.Base.metadata.create_all(bind=engine)
+
 app = FastAPI()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 def create_model(name):
@@ -27,3 +42,16 @@ async def create_prompt(
     ),
 ):
     return {"output": custom_prompt(prompt, model)}
+
+
+@app.get("/completions")
+async def read_all_completions(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    completions = crud.get_completions(db, skip=skip, limit=limit)
+    return completions
+
+
+@app.post("/prompt/create/random")
+async def create_random_fact(db: Session = Depends(get_db)):
+    comp = crud.create_random_completion(db)
+    print(comp.id)
+    return comp
