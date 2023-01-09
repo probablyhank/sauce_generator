@@ -53,5 +53,4 @@ async def read_all_completions(skip: int = 0, limit: int = 100, db: Session = De
 @app.post("/prompt/create/random")
 async def create_random_fact(db: Session = Depends(get_db)):
     comp = crud.create_random_completion(db)
-    print(comp.id)
     return comp
