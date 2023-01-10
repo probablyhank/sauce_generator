@@ -12,6 +12,8 @@ uvicorn sauce_generator.main:app --reload
 
 # Docker
 ```
-docker build -t sauce_generator .
-docker run -d --name my_cool_container -p 80:80 sauce_generator
+docker-compose build
+docker-compose run web alembic upgrade head
+docker-compose run web alembic revision --autogenerate -m "table migration"
+docker-compose up
 ```
