@@ -1,13 +1,11 @@
 from pydantic import BaseModel
 
-# shave all costs schemas away and wrap into completion
-
 
 class CompletionBase(BaseModel):
     model: str
 
 
-# add a new model for random completions that take no model or prompt
+# TODO add a new model for random completions that take no model or prompt
 
 
 class CompletionCreate(CompletionBase):

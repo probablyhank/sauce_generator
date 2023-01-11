@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from .db import Base
 
-# shave down to one table shape- costs will be in completions table - DO NOT NEED RELATIONSHIP
-
 
 class Completion(Base):
     __tablename__ = "completions"
@@ -11,7 +9,6 @@ class Completion(Base):
     object = Column(String)
     prompt = Column(String)
     model = Column(String)
-    # consider making column this a JSON array for plurals
     output = Column(String)
     prompt_cost = Column(Integer)
     output_cost = Column(Integer)
